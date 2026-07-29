@@ -6,6 +6,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0D1520">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.json">
   <title>Maja 🐾</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -40,66 +43,6 @@
       --shadow:    0 8px 32px rgba(0,0,0,0.45);
       --shadow-sm: 0 2px 12px rgba(0,0,0,0.3);
       --font:      'Plus Jakarta Sans', -apple-system, sans-serif;
-    }
-
-    /* ── ŠVIESI TEMA ── */
-    body.light {
-      --bg:        #F0F4F8;
-      --bg2:       #E8EFF7;
-      --surface:   #FFFFFF;
-      --surface2:  #F0F4F8;
-      --surface3:  #E2EAF4;
-      --border:    rgba(0,0,0,0.08);
-      --accent:    #D97706;
-      --accent2:   #B45309;
-      --accentbg:  rgba(217,119,6,0.10);
-      --text:      #0D1520;
-      --text2:     #4A6080;
-      --text3:     #8CA3BE;
-      --danger:    #DC2626;
-      --success:   #059669;
-      --shadow:    0 8px 32px rgba(0,0,0,0.10);
-      --shadow-sm: 0 2px 12px rgba(0,0,0,0.07);
-    }
-
-    /* Temos perjungimo mygtukas */
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .toggle-track {
-      width: 46px;
-      height: 26px;
-      background: var(--surface3);
-      border-radius: 13px;
-      position: relative;
-      transition: background .25s;
-      border: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    body.light .toggle-track {
-      background: var(--accent);
-      border-color: transparent;
-    }
-
-    .toggle-thumb {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
-      background: white;
-      border-radius: 50%;
-      transition: transform .25s cubic-bezier(.32,.72,0,1);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
-    }
-
-    body.light .toggle-thumb {
-      transform: translateX(20px);
     }
 
     html, body {
@@ -1090,19 +1033,6 @@
     </div>
 
     <div class="set-sec">
-      <div class="set-sec-title">Išvaizda</div>
-      <div class="set-card">
-        <div class="set-row clickable" onclick="toggleTheme()">
-          <span style="font-size:20px;" id="themeIcon">☀️</span>
-          <div class="set-name" id="themeLabel">Šviesi tema</div>
-          <div class="theme-toggle">
-            <div class="toggle-track"><div class="toggle-thumb"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="set-sec">
       <div class="set-sec-title">Saugumas</div>
       <div class="set-card">
         <div class="set-row clickable" onclick="openModal('pinModal')">
@@ -1175,9 +1105,6 @@
 // ║  CONFIG — PAKEISKITE ŠIAS REIKŠMES  ║
 // ╚══════════════════════════════════════╝
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLszDT6CDzsFU10S5Q83vDjkYnOvv9PXaKYSiBPEowYTYONLUyR4xxOsYgHIAVABDYGg/exec';
-const SHEET_ID = '1CYOv9wwFXwzjYCiUVlBe83IUwoY5cCdV5__BjlMieoU';
-const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Maja`;
-const SETTINGS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Nustatymai`;
 
 // Numatytieji pasirinkimai (naudojami pirmą kartą)
 const DEFAULT_ITEMS = [
@@ -1217,9 +1144,6 @@ let newType = 'fixed';
 // INIT
 // ──────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Užkrauname temą iš karto
-  applyTheme(localStorage.getItem('maja_theme') === 'light');
-
   loadItems();
   updateHeaderDate();
   updateBioStatus();
@@ -2016,52 +1940,7 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 // ──────────────────────────────────────
 // API
 // ──────────────────────────────────────
-// CSV eilutės skaitymas (atspariai kablelių ir kabučių atžvilgiu)
-function parseCSVLine(line) {
-  const cols = [];
-  let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { inQ = !inQ; }
-    else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
-    else { cur += c; }
-  }
-  cols.push(cur.trim());
-  return cols;
-}
-
 async function get(params) {
-  // Skaitymas — tiesiai per CSV (greičiau nei Apps Script)
-  if (params.action === 'getEntries') {
-    const r = await fetch(SHEET_CSV_URL);
-    if (!r.ok) throw new Error('CSV klaida: ' + r.status);
-    const text = await r.text();
-    const rows = text.trim().split('\n').slice(1) // praleisti antraštę
-      .map(line => {
-        const cols = parseCSVLine(line);
-        return [cols[0]||'', cols[1]||'', cols[2]||'', cols[3]||''];
-      })
-      .filter(r => r[0] !== '');
-
-    let entries = rows;
-    if (params.date)  entries = entries.filter(r => r[0] === params.date);
-    if (params.year)  entries = entries.filter(r => r[0].slice(0,4) === params.year);
-    if (params.month) entries = entries.filter(r => r[0].slice(5,7) === params.month);
-    if (params.kas)   entries = entries.filter(r => r[1].toLowerCase() === params.kas.toLowerCase());
-    return { entries };
-  }
-
-  if (params.action === 'getSettings') {
-    try {
-      const r = await fetch(SETTINGS_CSV_URL);
-      if (!r.ok) return { items: null };
-      const text = await r.text();
-      const val = text.trim().split('\n')[0] || null;
-      return { items: val };
-    } catch { return { items: null }; }
-  }
-
-  // Kita — per Apps Script
   const url = new URL(SCRIPT_URL);
   Object.entries(params).forEach(([k,v]) => url.searchParams.set(k,v));
   const r = await fetch(url.toString(), { redirect:'follow' });
@@ -2077,50 +1956,6 @@ async function post(data) {
   });
   return r.json();
 }
-
-// ──────────────────────────────────────
-// TEMA (tamsi / šviesi)
-// ──────────────────────────────────────
-function applyTheme(light) {
-  document.body.classList.toggle('light', light);
-  const icon  = document.getElementById('themeIcon');
-  const label = document.getElementById('themeLabel');
-  if (icon)  icon.textContent  = light ? '🌙' : '☀️';
-  if (label) label.textContent = light ? 'Tamsi tema' : 'Šviesi tema';
-}
-
-function toggleTheme() {
-  const isLight = document.body.classList.contains('light');
-  const newVal = !isLight;
-  localStorage.setItem('maja_theme', newVal ? 'light' : 'dark');
-  applyTheme(newVal);
-}
-
-// ──────────────────────────────────────
-// TAP VIRŠUJE → SCROLL Į VIRŠŲ (iOS stilius)
-// ──────────────────────────────────────
-(function() {
-  let lastTap = 0;
-  document.addEventListener('touchend', function(e) {
-    // Tik jei lietimas buvo viršutinėje 50px zonoje
-    const touch = e.changedTouches[0];
-    if (!touch || touch.clientY > 50) return;
-
-    const now = Date.now();
-    // Vienas tap (ne double tap) — palaukiam 200ms kad įsitikintume
-    if (now - lastTap < 300) return;
-    lastTap = now;
-
-    setTimeout(() => {
-      if (Date.now() - lastTap < 250) return; // buvo double tap — ignoruoti
-      // Randame aktyvų view
-      const activeView = document.querySelector('.view:not(.hidden)');
-      if (activeView && activeView.scrollTop > 0) {
-        activeView.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 250);
-  }, { passive: true });
-})();
 
 // ──────────────────────────────────────
 // UTILS
