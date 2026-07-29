@@ -12,9 +12,6 @@
   <title>Maja 🐾</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ─────────────────────────────────────────
-       BASE
-    ───────────────────────────────────────── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -45,6 +42,25 @@
       --font:      'Plus Jakarta Sans', -apple-system, sans-serif;
     }
 
+    :root.light {
+      --bg:        #F0F4F8;
+      --bg2:       #E8EFF6;
+      --surface:   #FFFFFF;
+      --surface2:  #F0F4F8;
+      --surface3:  #DDE6F0;
+      --border:    rgba(0,0,0,0.08);
+      --accent:    #D97706;
+      --accent2:   #B45309;
+      --accentbg:  rgba(217,119,6,0.10);
+      --text:      #0F172A;
+      --text2:     #475569;
+      --text3:     #94A3B8;
+      --danger:    #DC2626;
+      --success:   #059669;
+      --shadow:    0 8px 32px rgba(0,0,0,0.12);
+      --shadow-sm: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
     html, body {
       height: 100%;
       height: -webkit-fill-available;
@@ -54,9 +70,6 @@
       font-family: var(--font);
     }
 
-    /* ─────────────────────────────────────────
-       SCREEN MANAGER
-    ───────────────────────────────────────── */
     .screen {
       position: fixed;
       inset: 0;
@@ -74,9 +87,6 @@
       transform: scale(.97);
     }
 
-    /* ─────────────────────────────────────────
-       FIRST-TIME SETUP
-    ───────────────────────────────────────── */
     #screen-setup {
       align-items: center;
       justify-content: center;
@@ -85,9 +95,6 @@
       padding: 32px;
     }
 
-    /* ─────────────────────────────────────────
-       LOGIN SCREEN
-    ───────────────────────────────────────── */
     #screen-login {
       align-items: center;
       justify-content: space-between;
@@ -113,49 +120,23 @@
       justify-content: center;
       font-size: 44px;
       border: 1px solid rgba(245,158,11,0.2);
+      overflow: hidden;
     }
 
-    .login-h1 {
-      font-size: 30px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.5px;
-    }
+    .login-paw img { width: 100%; height: 100%; object-fit: cover; }
 
-    .login-sub {
-      font-size: 14px;
-      color: var(--text2);
-      margin-top: -16px;
-      text-align: center;
-    }
+    .login-h1 { font-size: 30px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .login-sub { font-size: 14px; color: var(--text2); margin-top: -16px; text-align: center; }
 
-    /* PIN dots */
-    .pin-dots {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-    }
+    .pin-dots { display: flex; gap: 14px; justify-content: center; }
 
     .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid var(--text3);
-      background: transparent;
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--text3); background: transparent;
       transition: all .15s ease;
     }
-
-    .pin-dot.filled {
-      background: var(--accent);
-      border-color: var(--accent);
-      transform: scale(1.15);
-    }
-
-    .pin-dot.error {
-      background: var(--danger);
-      border-color: var(--danger);
-      animation: shake .4s ease;
-    }
+    .pin-dot.filled { background: var(--accent); border-color: var(--accent); transform: scale(1.15); }
+    .pin-dot.error  { background: var(--danger); border-color: var(--danger); animation: shake .4s ease; }
 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
@@ -163,14 +144,8 @@
       60%      { transform: translateX(7px); }
     }
 
-    .pin-error-msg {
-      font-size: 13px;
-      color: var(--danger);
-      text-align: center;
-      height: 18px;
-    }
+    .pin-error-msg { font-size: 13px; color: var(--danger); text-align: center; height: 18px; }
 
-    /* PIN pad */
     .pin-pad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -192,42 +167,19 @@
       height: 68px;
       cursor: pointer;
       transition: background .12s, transform .1s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
     }
-
-    .pin-btn::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: white;
-      opacity: 0;
-      transition: opacity .15s;
-    }
-
+    .pin-btn::after { content:''; position:absolute; inset:0; background:white; opacity:0; transition:opacity .15s; }
     .pin-btn:active { transform: scale(.94); }
     .pin-btn:active::after { opacity: .06; }
-
-    .pin-btn.bio {
-      font-size: 22px;
-      background: var(--surface);
-    }
-
+    .pin-btn.bio { font-size: 22px; }
     .pin-btn.del { font-size: 20px; }
 
-    /* ─────────────────────────────────────────
-       APP SHELL
-    ───────────────────────────────────────── */
     #screen-app { background: var(--bg2); }
 
     .tab-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--surface);
       border-top: 1px solid var(--border);
       display: flex;
@@ -236,637 +188,192 @@
     }
 
     .tab-btn {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       padding: 10px 0 6px;
-      background: none;
-      border: none;
+      background: none; border: none;
       color: var(--text3);
-      font-family: var(--font);
-      font-size: 10px;
-      font-weight: 600;
-      gap: 4px;
-      cursor: pointer;
-      transition: color .2s;
-      letter-spacing: 0.3px;
+      font-family: var(--font); font-size: 10px; font-weight: 600;
+      gap: 4px; cursor: pointer; transition: color .2s; letter-spacing: 0.3px;
     }
-
     .tab-btn.active { color: var(--accent); }
-
     .tab-icon { font-size: 21px; }
 
-    /* views */
     .view {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
+      position: absolute; inset: 0;
+      overflow-y: auto; overscroll-behavior: contain;
       padding-bottom: calc(72px + env(safe-area-inset-bottom, 8px));
       -webkit-overflow-scrolling: touch;
       transition: opacity .2s ease;
     }
-
     .view.hidden { opacity: 0; pointer-events: none; }
 
-    /* ─────────────────────────────────────────
-       VIEW HEADERS
-    ───────────────────────────────────────── */
-    .v-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 20px 12px;
-    }
-
-    .v-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .v-sub {
-      font-size: 13px;
-      color: var(--text2);
-      margin-top: 2px;
-    }
+    .v-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 12px; }
+    .v-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+    .v-sub { font-size: 13px; color: var(--text2); margin-top: 2px; }
 
     .icon-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text2);
-      font-size: 16px;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text2); font-size: 16px;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-
     .icon-btn:active { opacity: .7; }
 
-    /* ─────────────────────────────────────────
-       CARDS & FORMS
-    ───────────────────────────────────────── */
-    .card {
-      margin: 0 16px 16px;
-      background: var(--surface);
-      border-radius: var(--r);
-      padding: 18px;
-      border: 1px solid var(--border);
-    }
+    .card { margin: 0 16px 16px; background: var(--surface); border-radius: var(--r); padding: 18px; border: 1px solid var(--border); }
 
-    .f-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
+    .f-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 
     .f-select {
-      width: 100%;
-      background: var(--bg);
+      width: 100%; background: var(--bg);
       border: 1.5px solid rgba(255,255,255,0.08);
-      border-radius: var(--r-sm);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 17px;
-      font-weight: 700;
+      border-radius: var(--r-sm); color: var(--text);
+      font-family: var(--font); font-size: 17px; font-weight: 700;
       padding: 13px 40px 13px 15px;
-      appearance: none;
-      -webkit-appearance: none;
+      appearance: none; -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E6A88' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      cursor: pointer;
+      background-repeat: no-repeat; background-position: right 14px center; cursor: pointer;
     }
-
     .f-select:focus { outline: none; border-color: var(--accent); }
 
-    /* action badge */
     .action-pill {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accentbg);
-      border: 1px solid rgba(245,158,11,0.25);
-      border-radius: var(--r-sm);
-      padding: 12px 16px;
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--accent2);
-      margin-top: 8px;
-      gap: 6px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accentbg); border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--r-sm); padding: 12px 16px;
+      font-size: 17px; font-weight: 700; color: var(--accent2); margin-top: 8px; gap: 6px;
     }
 
-    /* number input */
-    .num-wrap {
-      position: relative;
-      margin-top: 8px;
-    }
-
+    .num-wrap { position: relative; margin-top: 8px; }
     .f-number {
-      width: 100%;
-      background: var(--bg);
+      width: 100%; background: var(--bg);
       border: 1.5px solid rgba(255,255,255,0.08);
-      border-radius: var(--r-sm);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 36px;
-      font-weight: 800;
-      padding: 12px 60px 12px 16px;
-      text-align: center;
-      letter-spacing: -1px;
+      border-radius: var(--r-sm); color: var(--text);
+      font-family: var(--font); font-size: 36px; font-weight: 800;
+      padding: 12px 60px 12px 16px; text-align: center; letter-spacing: -1px;
     }
-
     .f-number:focus { outline: none; border-color: var(--accent); }
+    .num-unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 13px; font-weight: 600; }
 
-    .num-unit {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text2);
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .stepper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
+    .stepper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
     .step-btn {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      color: var(--text);
-      font-size: 30px;
-      font-weight: 300;
-      height: 52px;
-      cursor: pointer;
-      transition: background .12s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text);
+      font-size: 30px; font-weight: 300; height: 52px; cursor: pointer;
+      transition: background .12s; display: flex; align-items: center; justify-content: center;
     }
-
     .step-btn:active { background: var(--surface3); }
 
-    /* Submit */
     .btn-primary {
-      width: 100%;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--r-sm);
-      color: #0D1520;
-      font-family: var(--font);
-      font-size: 16px;
-      font-weight: 800;
-      padding: 17px;
-      cursor: pointer;
-      transition: opacity .15s, transform .1s;
-      letter-spacing: 0.2px;
+      width: 100%; background: var(--accent); border: none;
+      border-radius: var(--r-sm); color: #0D1520;
+      font-family: var(--font); font-size: 16px; font-weight: 800;
+      padding: 17px; cursor: pointer; transition: opacity .15s, transform .1s; letter-spacing: 0.2px;
     }
-
     .btn-primary:active { transform: scale(.98); opacity: .9; }
     .btn-primary:disabled { opacity: .55; }
 
-    /* ─────────────────────────────────────────
-       ENTRY ITEMS
-    ───────────────────────────────────────── */
-    .sec-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 8px 20px 8px;
-    }
-
-    .entries-list {
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .sec-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 8px 20px 8px; }
+    .entries-list { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
 
     .entry-item {
-      background: var(--surface);
-      border-radius: var(--r-sm);
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      border: 1px solid var(--border);
-      border-left-width: 3px;
+      background: var(--surface); border-radius: var(--r-sm);
+      padding: 12px 14px; display: flex; align-items: center; gap: 11px;
+      border: 1px solid var(--border); border-left-width: 3px;
     }
+    .e-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .e-name { flex: 1; font-size: 15px; font-weight: 600; }
+    .e-val { font-size: 13px; color: var(--text2); font-weight: 500; }
+    .e-time { font-size: 11px; color: var(--text3); font-weight: 600; }
 
-    .e-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .e-name {
-      flex: 1;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .e-val {
-      font-size: 13px;
-      color: var(--text2);
-      font-weight: 500;
-    }
-
-    .e-time {
-      font-size: 11px;
-      color: var(--text3);
-      font-weight: 600;
-    }
-
-    /* ─────────────────────────────────────────
-       HISTORY
-    ───────────────────────────────────────── */
-    .filter-row {
-      display: flex;
-      gap: 8px;
-      padding: 0 16px 10px;
-    }
-
+    .filter-row { display: flex; gap: 8px; padding: 0 16px 10px; }
     .f-select-sm {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 10px 30px 10px 12px;
-      appearance: none;
-      -webkit-appearance: none;
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text);
+      font-family: var(--font); font-size: 13px; font-weight: 600;
+      padding: 10px 30px 10px 12px; appearance: none; -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234E6A88' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
+      background-repeat: no-repeat; background-position: right 10px center;
     }
 
-    .chip-bar {
-      display: flex;
-      gap: 7px;
-      padding: 0 16px 12px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .chip-bar { display: flex; gap: 7px; padding: 0 16px 12px; overflow-x: auto; scrollbar-width: none; }
     .chip-bar::-webkit-scrollbar { display: none; }
-
     .chip {
-      background: var(--surface);
-      border: 1.5px solid transparent;
-      border-radius: 20px;
-      color: var(--text2);
-      font-family: var(--font);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 6px 14px;
-      white-space: nowrap;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all .18s;
+      background: var(--surface); border: 1.5px solid transparent;
+      border-radius: 20px; color: var(--text2);
+      font-family: var(--font); font-size: 13px; font-weight: 600;
+      padding: 6px 14px; white-space: nowrap; cursor: pointer; flex-shrink: 0; transition: all .18s;
     }
+    .chip.active { border-color: var(--accent); color: var(--accent); background: var(--accentbg); }
 
-    .chip.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accentbg);
-    }
+    .date-group { font-size: 12px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 14px 4px 6px; }
 
-    /* date group header in history */
-    .date-group {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 14px 4px 6px;
-    }
-
-    /* ─────────────────────────────────────────
-       SETTINGS
-    ───────────────────────────────────────── */
-    .set-sec {
-      margin: 0 16px 20px;
-    }
-
-    .set-sec-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding-left: 4px;
-      margin-bottom: 8px;
-    }
-
-    .set-card {
-      background: var(--surface);
-      border-radius: var(--r);
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .set-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .set-sec { margin: 0 16px 20px; }
+    .set-sec-title { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding-left: 4px; margin-bottom: 8px; }
+    .set-card { background: var(--surface); border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+    .set-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
     .set-row:last-child { border-bottom: none; }
     .set-row.clickable { cursor: pointer; }
     .set-row.clickable:active { background: var(--surface2); }
+    .set-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .set-name { flex: 1; font-size: 15px; font-weight: 600; }
+    .set-sub { font-size: 12px; color: var(--text3); font-weight: 500; }
 
-    .set-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    .set-name {
-      flex: 1;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .set-sub {
-      font-size: 12px;
-      color: var(--text3);
-      font-weight: 500;
-    }
-
-    .del-btn {
-      background: none;
-      border: none;
-      color: var(--danger);
-      font-size: 18px;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .del-btn { background: none; border: none; color: var(--danger); font-size: 18px; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .del-btn:active { background: rgba(239,68,68,.12); }
 
-    .order-btn {
-      background: none;
-      border: none;
-      color: var(--text2);
-      font-size: 11px;
-      width: 24px;
-      height: 20px;
-      cursor: pointer;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-    }
+    .order-btn { background: none; border: none; color: var(--text2); font-size: 11px; width: 24px; height: 20px; cursor: pointer; border-radius: 4px; display: flex; align-items: center; justify-content: center; padding: 0; }
     .order-btn:active { background: var(--surface3); }
 
-    .entry-del-btn {
-      background: none;
-      border: none;
-      color: var(--danger);
-      font-size: 13px;
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.6;
-      flex-shrink: 0;
-    }
+    .entry-del-btn { background: none; border: none; color: var(--danger); font-size: 13px; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.6; flex-shrink: 0; }
     .entry-del-btn:active { opacity: 1; background: rgba(239,68,68,.12); }
 
-    /* add form */
-    .add-form {
-      background: var(--surface);
-      border-radius: var(--r);
-      padding: 16px;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .add-form { background: var(--surface); border-radius: var(--r); padding: 16px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
 
-    .t-input {
-      background: var(--bg);
-      border: 1.5px solid rgba(255,255,255,0.08);
-      border-radius: var(--r-sm);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 500;
-      padding: 12px 14px;
-      width: 100%;
-    }
-
+    .t-input { background: var(--bg); border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--r-sm); color: var(--text); font-family: var(--font); font-size: 15px; font-weight: 500; padding: 12px 14px; width: 100%; }
     .t-input:focus { outline: none; border-color: var(--accent); }
     .t-input::placeholder { color: var(--text3); }
 
-    .type-toggle {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .type-btn {
-      background: var(--bg);
-      border: 1.5px solid rgba(255,255,255,0.08);
-      border-radius: var(--r-sm);
-      color: var(--text3);
-      font-family: var(--font);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 10px;
-      cursor: pointer;
-      transition: all .18s;
-    }
-
-    .type-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accentbg);
-    }
-
+    .type-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .type-btn { background: var(--bg); border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--r-sm); color: var(--text3); font-family: var(--font); font-size: 13px; font-weight: 700; padding: 10px; cursor: pointer; transition: all .18s; }
+    .type-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accentbg); }
     .input-row { display: flex; gap: 8px; }
 
-    /* ─────────────────────────────────────────
-       MODAL (bottom sheet)
-    ───────────────────────────────────────── */
-    .modal-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0);
-      z-index: 300;
-      display: flex;
-      align-items: flex-end;
-      pointer-events: none;
-      transition: background .3s;
-    }
-
-    .modal-bg.open {
-      background: rgba(0,0,0,.65);
-      pointer-events: all;
-    }
-
-    .modal-sheet {
-      background: var(--surface);
-      border-radius: 22px 22px 0 0;
-      padding: 0 20px calc(20px + env(safe-area-inset-bottom, 0px));
-      width: 100%;
-      transform: translateY(100%);
-      transition: transform .3s cubic-bezier(.32,.72,0,1);
-      border-top: 1px solid var(--border);
-    }
-
+    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0); z-index: 300; display: flex; align-items: flex-end; pointer-events: none; transition: background .3s; }
+    .modal-bg.open { background: rgba(0,0,0,.65); pointer-events: all; }
+    .modal-sheet { background: var(--surface); border-radius: 22px 22px 0 0; padding: 0 20px calc(20px + env(safe-area-inset-bottom, 0px)); width: 100%; transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); border-top: 1px solid var(--border); }
     .modal-bg.open .modal-sheet { transform: translateY(0); }
+    .modal-handle { width: 36px; height: 4px; background: var(--surface3); border-radius: 2px; margin: 14px auto 20px; }
+    .modal-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 20px; }
 
-    .modal-handle {
-      width: 36px;
-      height: 4px;
-      background: var(--surface3);
-      border-radius: 2px;
-      margin: 14px auto 20px;
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    /* ─────────────────────────────────────────
-       TOAST
-    ───────────────────────────────────────── */
-    .toast {
-      position: fixed;
-      bottom: calc(76px + env(safe-area-inset-bottom, 8px));
-      left: 50%;
-      transform: translateX(-50%) translateY(12px);
-      background: var(--surface3);
-      color: var(--text);
-      padding: 11px 20px;
-      border-radius: 24px;
-      font-size: 14px;
-      font-weight: 600;
-      opacity: 0;
-      transition: all .28s cubic-bezier(.32,.72,0,1);
-      z-index: 500;
-      white-space: nowrap;
-      box-shadow: 0 6px 24px rgba(0,0,0,.5);
-      pointer-events: none;
-      border: 1px solid var(--border);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
+    .toast { position: fixed; bottom: calc(76px + env(safe-area-inset-bottom, 8px)); left: 50%; transform: translateX(-50%) translateY(12px); background: var(--surface3); color: var(--text); padding: 11px 20px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: all .28s cubic-bezier(.32,.72,0,1); z-index: 500; white-space: nowrap; box-shadow: 0 6px 24px rgba(0,0,0,.5); pointer-events: none; border: 1px solid var(--border); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .toast.ok  { background: #064E3B; border-color: rgba(16,185,129,.3); color: #6EE7B7; }
     .toast.err { background: #450A0A; border-color: rgba(239,68,68,.3); color: #FCA5A5; }
 
-    /* ─────────────────────────────────────────
-       EMPTY STATE
-    ───────────────────────────────────────── */
-    .empty {
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--text3);
-    }
-
+    .empty { text-align: center; padding: 48px 20px; color: var(--text3); }
     .empty-icon { font-size: 36px; margin-bottom: 10px; }
     .empty-text { font-size: 14px; font-weight: 500; }
 
-    /* ─────────────────────────────────────────
-       SPINNER
-    ───────────────────────────────────────── */
-    .spin {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(13,21,32,.3);
-      border-top-color: #0D1520;
-      border-radius: 50%;
-      animation: rot .7s linear infinite;
-      vertical-align: middle;
-    }
+    .spin { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(13,21,32,.3); border-top-color: #0D1520; border-radius: 50%; animation: rot .7s linear infinite; vertical-align: middle; }
     @keyframes rot { to { transform: rotate(360deg); } }
 
-    /* ─────────────────────────────────────────
-       SETUP SCREEN EXTRAS
-    ───────────────────────────────────────── */
-    .setup-title {
-      font-size: 26px;
-      font-weight: 800;
-      text-align: center;
-      letter-spacing: -0.5px;
-    }
-
-    .setup-sub {
-      font-size: 14px;
-      color: var(--text2);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .setup-pin-pad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      width: 100%;
-      max-width: 300px;
-    }
+    .setup-title { font-size: 26px; font-weight: 800; text-align: center; letter-spacing: -0.5px; }
+    .setup-sub { font-size: 14px; color: var(--text2); text-align: center; line-height: 1.5; }
+    .setup-pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 300px; }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     FIRST-TIME SETUP SCREEN
-══════════════════════════════════════ -->
 <div id="screen-setup" class="screen hidden">
-  <div class="login-paw">🐾</div>
+  <div class="login-paw"><img src="icon-192.png" alt="Maja" onerror="this.parentElement.textContent='🐾'"></div>
   <div class="setup-title">Sukurti PIN</div>
   <div class="setup-sub" id="setupSub">Pasirinkite 4 skaitmenų PIN kodą</div>
-
   <div class="pin-dots" id="setupDots">
-    <div class="pin-dot" id="sd0"></div>
-    <div class="pin-dot" id="sd1"></div>
-    <div class="pin-dot" id="sd2"></div>
-    <div class="pin-dot" id="sd3"></div>
+    <div class="pin-dot" id="sd0"></div><div class="pin-dot" id="sd1"></div>
+    <div class="pin-dot" id="sd2"></div><div class="pin-dot" id="sd3"></div>
   </div>
   <div class="pin-error-msg" id="setupError"></div>
-
-  <div class="setup-pin-pad" id="setupPad">
+  <div class="setup-pin-pad">
     <button class="pin-btn" onclick="setupPinPress('1')">1</button>
     <button class="pin-btn" onclick="setupPinPress('2')">2</button>
     <button class="pin-btn" onclick="setupPinPress('3')">3</button>
@@ -882,26 +389,17 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     LOGIN SCREEN
-══════════════════════════════════════ -->
 <div id="screen-login" class="screen hidden">
   <div class="login-top">
-    <div class="login-paw">🐾</div>
-    <div>
-      <div class="login-h1">Maja</div>
-    </div>
+    <div class="login-paw"><img src="icon-192.png" alt="Maja" onerror="this.parentElement.textContent='🐾'"></div>
+    <div><div class="login-h1">Maja</div></div>
     <div class="login-sub" id="loginSub">Įveskite PIN kodą</div>
-
     <div class="pin-dots" id="loginDots">
-      <div class="pin-dot" id="ld0"></div>
-      <div class="pin-dot" id="ld1"></div>
-      <div class="pin-dot" id="ld2"></div>
-      <div class="pin-dot" id="ld3"></div>
+      <div class="pin-dot" id="ld0"></div><div class="pin-dot" id="ld1"></div>
+      <div class="pin-dot" id="ld2"></div><div class="pin-dot" id="ld3"></div>
     </div>
     <div class="pin-error-msg" id="loginError"></div>
   </div>
-
   <div class="pin-pad">
     <button class="pin-btn" onclick="loginPinPress('1')">1</button>
     <button class="pin-btn" onclick="loginPinPress('2')">2</button>
@@ -928,12 +426,7 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     APP SCREEN
-══════════════════════════════════════ -->
 <div id="screen-app" class="screen hidden">
-
-  <!-- ── ENTRY VIEW ── -->
   <div id="view-entry" class="view">
     <div class="v-header">
       <div>
@@ -944,17 +437,14 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
     </div>
-
     <div class="card">
       <div class="f-label">Kas</div>
       <select class="f-select" id="itemSelect" onchange="onItemChange()"></select>
-
-      <div id="actionArea" style="margin-top: 14px; display: none;">
+      <div id="actionArea" style="margin-top:14px;display:none;">
         <div class="f-label">Veiksmas</div>
         <div class="action-pill" id="actionPill"></div>
       </div>
-
-      <div id="numberArea" style="margin-top: 14px; display: none;">
+      <div id="numberArea" style="margin-top:14px;display:none;">
         <div class="f-label">Kiekis</div>
         <div class="num-wrap">
           <input type="number" class="f-number" id="numInput" value="0" min="0">
@@ -965,19 +455,14 @@
           <button class="step-btn" onclick="step(1)">+</button>
         </div>
       </div>
-
-      <button class="btn-primary" id="submitBtn" onclick="submitEntry()" style="margin-top: 16px;">
-        Išsaugoti
-      </button>
+      <button class="btn-primary" id="submitBtn" onclick="submitEntry()" style="margin-top:16px;">Išsaugoti</button>
     </div>
-
     <div class="sec-label">Šiandien</div>
     <div class="entries-list" id="todayList">
       <div class="empty"><div class="empty-icon">🐾</div><div class="empty-text">Kraunama...</div></div>
     </div>
   </div>
 
-  <!-- ── HISTORY VIEW ── -->
   <div id="view-history" class="view hidden">
     <div class="v-header">
       <div>
@@ -985,28 +470,18 @@
         <div class="v-sub" id="historyCount"></div>
       </div>
     </div>
-
     <div class="filter-row">
-      <select class="f-select-sm" id="fYear" onchange="updateMonthFilter()">
-        <option value="">Visi metai</option>
-      </select>
-      <select class="f-select-sm" id="fMonth" onchange="applyFilters()">
-        <option value="">Visi mėn.</option>
-      </select>
+      <select class="f-select-sm" id="fYear" onchange="updateMonthFilter()"><option value="">Visi metai</option></select>
+      <select class="f-select-sm" id="fMonth" onchange="applyFilters()"><option value="">Visi mėn.</option></select>
     </div>
-
     <div class="chip-bar" id="chipBar"></div>
-
     <div class="entries-list" id="historyList">
       <div class="empty"><div class="empty-icon">📅</div><div class="empty-text">Pasirinkite filtrus</div></div>
     </div>
   </div>
 
-  <!-- ── SETTINGS VIEW ── -->
   <div id="view-settings" class="view hidden">
-    <div class="v-header">
-      <div class="v-title">Nustatymai</div>
-    </div>
+    <div class="v-header"><div class="v-title">Nustatymai</div></div>
 
     <div class="set-sec">
       <div class="set-sec-title">Pasirinkimai</div>
@@ -1022,13 +497,24 @@
           <button class="type-btn active" id="tbFixed" onclick="setType('fixed')">📝 Tekstas</button>
           <button class="type-btn" id="tbNum" onclick="setType('number')">🔢 Skaičius</button>
         </div>
-        <div id="numExtra" style="display: none;">
+        <div id="numExtra" style="display:none;">
           <div class="input-row">
             <input type="text" class="t-input" id="newUnit" placeholder="Vienetas (vnt., kg...)">
-            <input type="number" class="t-input" id="newStep" placeholder="Žings." value="1" style="max-width: 80px;">
+            <input type="number" class="t-input" id="newStep" placeholder="Žings." value="1" style="max-width:80px;">
           </div>
         </div>
         <button class="btn-primary" onclick="addItem()">Pridėti +</button>
+      </div>
+    </div>
+
+    <div class="set-sec">
+      <div class="set-sec-title">Išvaizda</div>
+      <div class="set-card">
+        <div class="set-row clickable" onclick="toggleTheme()">
+          <span style="font-size:20px;" id="themeIcon">☀️</span>
+          <div class="set-name" id="themeLabel">Šviesi tema</div>
+          <div class="set-sub" id="themeStatus">Dabar: tamsi</div>
+        </div>
       </div>
     </div>
 
@@ -1045,48 +531,33 @@
           <div style="flex:1">
             <div class="set-name">Face ID / Touch ID</div>
             <div class="set-sub" id="bioStatus">—</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4;">Kai pasirodys langas — pasirinkite <strong style="color:var(--text2)">„iPhone"</strong> arba <strong style="color:var(--text2)">„iCloud Keychain"</strong>, ne Microsoft</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4;">Kai pasirodys langas — pasirinkite <strong style="color:var(--text2)">„iPhone"</strong> arba <strong style="color:var(--text2)">„iCloud Keychain"</strong></div>
           </div>
         </div>
       </div>
     </div>
-
-    <div style="height: 20px;"></div>
+    <div style="height:20px;"></div>
   </div>
 
-  <!-- TAB BAR -->
   <div class="tab-bar">
-    <button class="tab-btn active" id="tab-entry" onclick="switchTab('entry')">
-      <span class="tab-icon">✏️</span>Įrašyti
-    </button>
-    <button class="tab-btn" id="tab-history" onclick="switchTab('history')">
-      <span class="tab-icon">📅</span>Istorija
-    </button>
-    <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')">
-      <span class="tab-icon">⚙️</span>Nustatymai
-    </button>
+    <button class="tab-btn active" id="tab-entry" onclick="switchTab('entry')"><span class="tab-icon">✏️</span>Įrašyti</button>
+    <button class="tab-btn" id="tab-history" onclick="switchTab('history')"><span class="tab-icon">📅</span>Istorija</button>
+    <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')"><span class="tab-icon">⚙️</span>Nustatymai</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     MODAL: Change PIN
-══════════════════════════════════════ -->
 <div class="modal-bg" id="pinModal" onclick="closeModal('pinModal')">
   <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-title">Keisti PIN</div>
-    <input type="password" class="t-input" id="pin1" placeholder="Naujas 4 skaitmenų PIN"
-           maxlength="4" inputmode="numeric" style="margin-bottom: 10px; width: 100%;">
-    <input type="password" class="t-input" id="pin2" placeholder="Pakartoti PIN"
-           maxlength="4" inputmode="numeric" style="margin-bottom: 16px; width: 100%;">
+    <input type="password" class="t-input" id="pin1" placeholder="Naujas 4 skaitmenų PIN" maxlength="4" inputmode="numeric" style="margin-bottom:10px;width:100%;">
+    <input type="password" class="t-input" id="pin2" placeholder="Pakartoti PIN" maxlength="4" inputmode="numeric" style="margin-bottom:16px;width:100%;">
     <button class="btn-primary" onclick="changePin()">Išsaugoti</button>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- MODAL: Delete entry confirmation -->
 <div class="modal-bg" id="deleteModal" onclick="closeModal('deleteModal')">
   <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -1097,16 +568,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════ -->
 <script>
-// ╔══════════════════════════════════════╗
-// ║  CONFIG — PAKEISKITE ŠIAS REIKŠMES  ║
-// ╚══════════════════════════════════════╝
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLszDT6CDzsFU10S5Q83vDjkYnOvv9PXaKYSiBPEowYTYONLUyR4xxOsYgHIAVABDYGg/exec';
 
-// Numatytieji pasirinkimai (naudojami pirmą kartą)
 const DEFAULT_ITEMS = [
   { id:'vaistai',   name:'Vaistai',   action:'sulašinta', type:'fixed',  color:'#7C3AED' },
   { id:'gulias',    name:'Guliašas',  action:'įdėta',     type:'fixed',  color:'#991B1B' },
@@ -1128,86 +592,82 @@ const ITEM_COLORS = [
 function pickColor() {
   const used = new Set(items.map(i => i.color));
   const free = ITEM_COLORS.filter(c => !used.has(c));
-  // Jei dar yra laisvų — paima pirmą laisvą, kitaip — atsitiktinę
-  return free.length
-    ? free[0]
-    : ITEM_COLORS[Math.floor(Math.random() * ITEM_COLORS.length)];
+  return free.length ? free[0] : ITEM_COLORS[Math.floor(Math.random()*ITEM_COLORS.length)];
 }
 
-// ──────────────────────────────────────
-// STATE
-// ──────────────────────────────────────
 let items = [];
 let newType = 'fixed';
+let allEntries = [];
+let allEntriesLoaded = false;
+let historyVisited = false;
+let lastHistoryYear = '';
+let lastHistoryMonth = '';
+let loginFailCount = 0;
 
-// ──────────────────────────────────────
-// INIT
-// ──────────────────────────────────────
+// ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   loadItems();
   updateHeaderDate();
   updateBioStatus();
-
+  initTheme();
   const hasPin = localStorage.getItem('maja_pin');
-
   if (!hasPin) {
     showScreen('screen-setup');
   } else {
     showScreen('screen-login');
-    // Auto-trigger Face ID if registered
-    if (localStorage.getItem('bio_cred')) {
-      setTimeout(loginBio, 600);
-    }
+    if (localStorage.getItem('bio_cred')) setTimeout(loginBio, 600);
   }
 });
 
 function showScreen(id) {
-  ['screen-setup','screen-login','screen-app'].forEach(s => {
-    document.getElementById(s).classList.toggle('hidden', s !== id);
-  });
+  ['screen-setup','screen-login','screen-app'].forEach(s =>
+    document.getElementById(s).classList.toggle('hidden', s !== id));
 }
 
 function updateHeaderDate() {
   const d = new Date();
   const DAYS = ['Sekmadienis','Pirmadienis','Antradienis','Trečiadienis','Ketvirtadienis','Penktadienis','Šeštadienis'];
   const pad = n => String(n).padStart(2,'0');
-  const dateStr = `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())}`;
-  document.getElementById('headerDate').textContent = `${dateStr} ${DAYS[d.getDay()]}`;
+  document.getElementById('headerDate').textContent =
+    `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} ${DAYS[d.getDay()]}`;
 }
 
-function buildYearFilter() {
-  const sel = document.getElementById('fYear');
-  const y = new Date().getFullYear();
-  for (let i = y; i >= y - 4; i--) {
-    const o = document.createElement('option');
-    o.value = i; o.textContent = i;
-    if (i === y) o.selected = true;
-    sel.appendChild(o);
-  }
+// ── TEMA ──
+function initTheme() {
+  applyTheme(localStorage.getItem('maja_theme') === 'light' ? 'light' : 'dark');
 }
 
-// ──────────────────────────────────────
-// ITEMS (pasirinkimai)
-// ──────────────────────────────────────
+function toggleTheme() {
+  applyTheme(document.documentElement.classList.contains('light') ? 'dark' : 'light');
+}
+
+function applyTheme(theme) {
+  const isLight = theme === 'light';
+  document.documentElement.classList.toggle('light', isLight);
+  localStorage.setItem('maja_theme', theme);
+  const icon   = document.getElementById('themeIcon');
+  const label  = document.getElementById('themeLabel');
+  const status = document.getElementById('themeStatus');
+  if (icon)   icon.textContent   = isLight ? '🌙' : '☀️';
+  if (label)  label.textContent  = isLight ? 'Tamsi tema' : 'Šviesi tema';
+  if (status) status.textContent = `Dabar: ${isLight ? 'šviesi' : 'tamsi'}`;
+}
+
+// ── ITEMS ──
 function loadItems() {
   const s = localStorage.getItem('maja_items');
   items = s ? JSON.parse(s) : [...DEFAULT_ITEMS];
-  renderSelect();
-  renderSettingsList();
-  renderChipBar();
+  renderSelect(); renderSettingsList(); renderChipBar();
 }
 
 function saveItems() {
   localStorage.setItem('maja_items', JSON.stringify(items));
-  renderSelect();
-  renderSettingsList();
-  renderChipBar();
+  renderSelect(); renderSettingsList(); renderChipBar();
   syncSettings();
 }
 
 async function syncSettings() {
-  try { await post({ action:'saveSettings', items: JSON.stringify(items) }); }
-  catch {}
+  try { await post({ action:'saveSettings', items: JSON.stringify(items) }); } catch {}
 }
 
 async function pullSettings() {
@@ -1237,27 +697,22 @@ function renderSelect() {
 function onItemChange() {
   const item = getSelected();
   if (!item) return;
-
   const aArea = document.getElementById('actionArea');
   const nArea = document.getElementById('numberArea');
-
   if (item.type === 'number') {
-    aArea.style.display = 'none';
-    nArea.style.display = 'block';
+    aArea.style.display = 'none'; nArea.style.display = 'block';
     const ni = document.getElementById('numInput');
     ni.step = item.step;
     ni.value = item.step < 1 ? '0.0' : '0';
     document.getElementById('numUnit').textContent = item.unit || '';
   } else {
-    aArea.style.display = 'block';
-    nArea.style.display = 'none';
+    aArea.style.display = 'block'; nArea.style.display = 'none';
     document.getElementById('actionPill').textContent = item.action || '—';
   }
 }
 
 function getSelected() {
-  const id = document.getElementById('itemSelect').value;
-  return items.find(i => i.id === id);
+  return items.find(i => i.id === document.getElementById('itemSelect').value);
 }
 
 function step(d) {
@@ -1269,13 +724,10 @@ function step(d) {
   inp.value = s < 1 ? v.toFixed(1) : String(v);
 }
 
-// ──────────────────────────────────────
-// SUBMIT ENTRY
-// ──────────────────────────────────────
+// ── SUBMIT ──
 async function submitEntry() {
   const item = getSelected();
   if (!item) return;
-
   let val;
   if (item.type === 'number') {
     const v = parseFloat(document.getElementById('numInput').value);
@@ -1284,104 +736,61 @@ async function submitEntry() {
   } else {
     val = item.action;
   }
-
   const btn = document.getElementById('submitBtn');
-  btn.innerHTML = '<span class="spin"></span>';
-  btn.disabled = true;
-
+  btn.innerHTML = '<span class="spin"></span>'; btn.disabled = true;
   const now = new Date();
   const pad = n => String(n).padStart(2,'0');
   const dateStr = `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())}`;
   const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-
   try {
     await post({ action:'addEntry', date:dateStr, kas:item.name, veiksmas:val, time:timeStr });
     toast('Išsaugota ✓', 'ok');
-    allEntries = [];
-    allEntriesLoaded = false;
-    if (item.type === 'number') {
-      document.getElementById('numInput').value = item.step < 1 ? '0.0' : '0';
-    }
+    allEntries = []; allEntriesLoaded = false;
+    if (item.type === 'number') document.getElementById('numInput').value = item.step < 1 ? '0.0' : '0';
     loadToday();
   } catch {
     toast('Klaida. Bandykite dar kartą.', 'err');
   }
-
-  btn.innerHTML = 'Išsaugoti';
-  btn.disabled = false;
+  btn.innerHTML = 'Išsaugoti'; btn.disabled = false;
 }
 
-// ──────────────────────────────────────
-// LOAD DATA
-// ──────────────────────────────────────
+// ── LOAD TODAY ──
 async function loadToday() {
   const now = new Date();
   const pad = n => String(n).padStart(2,'0');
   const today = `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())}`;
   const list = document.getElementById('todayList');
   list.innerHTML = `<div class="empty"><div class="spin" style="width:28px;height:28px;border-width:3px;margin:40px auto;display:block;border-top-color:#F59E0B;border-color:rgba(245,158,11,.2)"></div></div>`;
-
   try {
     const d = await get({ action:'getEntries', date: today });
     if (d.error) throw new Error(d.error);
-    const entries = d.entries || [];
-    if (entries.length === 0) {
-      // Rodome datą kurią siuntėme — pagalbai diagnozuoti
-      list.innerHTML = `<div class="empty"><div class="empty-icon">🐾</div><div class="empty-text">Šiandien įrašų nėra<br><span style="font-size:11px;color:var(--text3)">(ieškota: ${today})</span></div></div>`;
-    } else {
-      renderEntries(list, entries, true);
-    }
+    renderEntries(list, d.entries || [], true);
   } catch(err) {
     list.innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text" style="color:var(--danger);font-size:12px;">${err.message}</div></div>`;
   }
 }
 
-// Visi duomenys iš Sheets (cache)
-let allEntries = [];
-let allEntriesLoaded = false; // ar jau visa istorija užkrauta
-let lastHistoryYear  = '';
-let lastHistoryMonth = '';
-let historyVisited   = false;
-
+// ── HISTORY ──
 async function initHistory() {
   const now = new Date();
   const pad = n => String(n).padStart(2,'0');
   const curYear  = String(now.getFullYear());
-  const curMonth = pad(now.getMonth() + 1);
-
-  const fYear  = document.getElementById('fYear');
-  const fMonth = document.getElementById('fMonth');
+  const curMonth = pad(now.getMonth()+1);
 
   if (!historyVisited) {
-    // Pirmas apsilankymas — nustatome dabartinius metus ir mėnesį
-    lastHistoryYear  = curYear;
-    lastHistoryMonth = curMonth;
-    historyVisited   = true;
+    lastHistoryYear = curYear; lastHistoryMonth = curMonth; historyVisited = true;
   }
 
-  // Atnaujiname dropdown reikšmes
-  setYearOption(lastHistoryYear);
-  setMonthOption(lastHistoryMonth);
+  if (allEntriesLoaded) { buildDynamicFilters(); return; }
 
-  // Jei jau turime duomenis — rodome iš karto
-  if (allEntries.length) {
-    buildDynamicFilters();
-    return;
-  }
-
-  // Greita užklausa — tik šis mėnuo
   const list = document.getElementById('historyList');
   list.innerHTML = `<div class="empty"><div class="spin" style="width:28px;height:28px;border-width:3px;margin:40px auto;display:block;border-top-color:#F59E0B;border-color:rgba(245,158,11,.2)"></div></div>`;
 
   try {
     const fast = await get({ action:'getEntries', year: lastHistoryYear, month: lastHistoryMonth });
     if (fast.error) throw new Error(fast.error);
-
-    // Rodome greitai gautus duomenis
-    const quickEntries = fast.entries || [];
-    renderFilteredList(quickEntries);
-
-    // Fone krauname viską
+    setYearMonthOptions(lastHistoryYear, lastHistoryMonth);
+    renderFilteredList(fast.entries || []);
     loadAllInBackground();
   } catch(err) {
     list.innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text" style="color:var(--danger);font-size:12px;">${err.message}</div></div>`;
@@ -1392,66 +801,37 @@ async function loadAllInBackground() {
   try {
     const d = await get({ action:'getEntries' });
     if (d.error) return;
-    allEntries = d.entries || [];
-    allEntriesLoaded = true;
-    // Atnaujina filtrus (metai, mėnesiai dropdown) bet nekeičia rodomo sąrašo
+    allEntries = d.entries || []; allEntriesLoaded = true;
     buildDynamicFilters();
   } catch {}
 }
 
-async function fetchAllEntries() {
-  try {
-    const d = await get({ action:'getEntries' });
-    if (d.error) throw new Error(d.error);
-    allEntries = d.entries || [];
-    allEntriesLoaded = true;
-    buildDynamicFilters();
-  } catch(err) {
-    document.getElementById('historyList').innerHTML =
-      `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text" style="color:var(--danger);font-size:12px;">${err.message}</div></div>`;
+function setYearMonthOptions(year, month) {
+  const MNAMES = {'01':'Sausis','02':'Vasaris','03':'Kovas','04':'Balandis','05':'Gegužė','06':'Birželis','07':'Liepa','08':'Rugpjūtis','09':'Rugsėjis','10':'Spalis','11':'Lapkritis','12':'Gruodis'};
+  const fYear = document.getElementById('fYear');
+  if (year && ![...fYear.options].find(o => o.value===year)) {
+    const o = document.createElement('option'); o.value=year; o.textContent=year; fYear.appendChild(o);
   }
-}
-
-function setYearOption(year) {
-  const sel = document.getElementById('fYear');
-  // Pridedame opciją jei nėra
-  if (year && ![...sel.options].find(o => o.value === year)) {
-    const o = document.createElement('option');
-    o.value = year; o.textContent = year;
-    sel.appendChild(o);
+  fYear.value = year;
+  const fMonth = document.getElementById('fMonth');
+  if (month && ![...fMonth.options].find(o => o.value===month)) {
+    const o = document.createElement('option'); o.value=month; o.textContent=MNAMES[month]||month; fMonth.appendChild(o);
   }
-  sel.value = year;
-}
-
-function setMonthOption(month) {
-  const MNAMES = {
-    '01':'Sausis','02':'Vasaris','03':'Kovas','04':'Balandis',
-    '05':'Gegužė','06':'Birželis','07':'Liepa','08':'Rugpjūtis',
-    '09':'Rugsėjis','10':'Spalis','11':'Lapkritis','12':'Gruodis'
-  };
-  const sel = document.getElementById('fMonth');
-  if (month && ![...sel.options].find(o => o.value === month)) {
-    const o = document.createElement('option');
-    o.value = month; o.textContent = MNAMES[month] || month;
-    sel.appendChild(o);
-  }
-  sel.value = month;
+  fMonth.value = month;
 }
 
 function buildDynamicFilters() {
   const years = [...new Set(allEntries.map(e => e[0].slice(0,4)).filter(Boolean))].sort().reverse();
   const fYear = document.getElementById('fYear');
   const curYear = fYear.value;
-
   fYear.innerHTML = '<option value="">Visi metai</option>';
   years.forEach(y => {
     const o = document.createElement('option');
-    o.value = y; o.textContent = y;
-    if (y === curYear) o.selected = true;
+    o.value=y; o.textContent=y;
+    if (y===curYear) o.selected=true;
     fYear.appendChild(o);
   });
   if (!fYear.value && years.length) fYear.value = years[0];
-
   updateMonthFilter();
 }
 
@@ -1459,30 +839,18 @@ function updateMonthFilter() {
   const year = document.getElementById('fYear').value;
   const fMonth = document.getElementById('fMonth');
   const curMonth = fMonth.value;
-
   const monthsInYear = year
-    ? [...new Set(allEntries.filter(e => e[0].slice(0,4) === year).map(e => e[0].slice(5,7)).filter(Boolean))].sort()
+    ? [...new Set(allEntries.filter(e => e[0].slice(0,4)===year).map(e => e[0].slice(5,7)).filter(Boolean))].sort()
     : [];
-
-  const MNAMES = {
-    '01':'Sausis','02':'Vasaris','03':'Kovas','04':'Balandis',
-    '05':'Gegužė','06':'Birželis','07':'Liepa','08':'Rugpjūtis',
-    '09':'Rugsėjis','10':'Spalis','11':'Lapkritis','12':'Gruodis'
-  };
-
+  const MNAMES = {'01':'Sausis','02':'Vasaris','03':'Kovas','04':'Balandis','05':'Gegužė','06':'Birželis','07':'Liepa','08':'Rugpjūtis','09':'Rugsėjis','10':'Spalis','11':'Lapkritis','12':'Gruodis'};
   fMonth.innerHTML = '<option value="">Visi mėn.</option>';
   monthsInYear.forEach(m => {
     const o = document.createElement('option');
-    o.value = m; o.textContent = MNAMES[m] || m;
-    if (m === curMonth) o.selected = true;
+    o.value=m; o.textContent=MNAMES[m]||m;
+    if (m===curMonth) o.selected=true;
     fMonth.appendChild(o);
   });
-
   if (curMonth && !monthsInYear.includes(curMonth)) fMonth.value = '';
-  applyFilters();
-}
-
-async function loadHistory() {
   applyFilters();
 }
 
@@ -1491,18 +859,15 @@ function applyFilters() {
   const month = document.getElementById('fMonth').value;
   const activeChip = document.querySelector('.chip.active');
   const kas = activeChip ? activeChip.dataset.v : '';
-
-  lastHistoryYear  = year;
-  lastHistoryMonth = month;
+  lastHistoryYear = year; lastHistoryMonth = month;
 
   if (allEntriesLoaded) {
     let entries = [...allEntries];
-    if (year)  entries = entries.filter(e => e[0].slice(0,4) === year);
-    if (month) entries = entries.filter(e => e[0].slice(5,7) === month);
-    if (kas)   entries = entries.filter(e => e[1].toLowerCase() === kas.toLowerCase());
+    if (year)  entries = entries.filter(e => e[0].slice(0,4)===year);
+    if (month) entries = entries.filter(e => e[0].slice(5,7)===month);
+    if (kas)   entries = entries.filter(e => e[1].toLowerCase()===kas.toLowerCase());
     renderFilteredList(entries);
   } else {
-    // Dar neužkrauta visa — siųsti užklausą su filtrais
     const params = { action:'getEntries' };
     if (year)  params.year  = year;
     if (month) params.month = month;
@@ -1510,9 +875,9 @@ function applyFilters() {
     list.innerHTML = `<div class="empty"><div class="spin" style="width:28px;height:28px;border-width:3px;margin:40px auto;display:block;border-top-color:#F59E0B;border-color:rgba(245,158,11,.2)"></div></div>`;
     get(params).then(d => {
       let entries = d.entries || [];
-      if (kas) entries = entries.filter(e => e[1].toLowerCase() === kas.toLowerCase());
+      if (kas) entries = entries.filter(e => e[1].toLowerCase()===kas.toLowerCase());
       renderFilteredList(entries);
-    }).catch(() => {});
+    }).catch(()=>{});
   }
 }
 
@@ -1520,25 +885,24 @@ function renderFilteredList(entries) {
   const list = document.getElementById('historyList');
   const countEl = document.getElementById('historyCount');
   if (countEl) countEl.textContent = entries.length ? `${entries.length} įrašai` : '';
-
   if (!entries.length) {
     list.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Įrašų nerasta</div></div>`;
     return;
   }
-
   list.innerHTML = '';
   let lastDate = '';
   entries.forEach(e => {
     if (e[0] !== lastDate) {
       lastDate = e[0];
       const dh = document.createElement('div');
-      dh.className = 'date-group';
-      dh.textContent = e[0];
+      dh.className = 'date-group'; dh.textContent = e[0];
       list.appendChild(dh);
     }
     list.appendChild(makeEntryEl(e, true));
   });
 }
+
+async function loadHistory() { applyFilters(); }
 
 function renderEntries(container, entries, showEmpty) {
   container.innerHTML = '';
@@ -1550,7 +914,7 @@ function renderEntries(container, entries, showEmpty) {
 }
 
 function makeEntryEl(e, showDel) {
-  const item = items.find(i => i.name.toLowerCase() === (e[1]||'').toLowerCase()) || {};
+  const item = items.find(i => i.name.toLowerCase()===(e[1]||'').toLowerCase()) || {};
   const color = item.color || '#4A90D9';
   const div = document.createElement('div');
   div.className = 'entry-item';
@@ -1565,9 +929,7 @@ function makeEntryEl(e, showDel) {
   return div;
 }
 
-// ──────────────────────────────────────
-// SETTINGS RENDER
-// ──────────────────────────────────────
+// ── SETTINGS ──
 function renderSettingsList() {
   const c = document.getElementById('settingsList');
   if (!c) return;
@@ -1604,9 +966,7 @@ function renderChipBar() {
   bar.innerHTML = `<button class="chip active" data-v="" onclick="chipClick(this)">Visi</button>`;
   items.forEach(item => {
     const btn = document.createElement('button');
-    btn.className = 'chip';
-    btn.dataset.v = item.name;
-    btn.textContent = item.name;
+    btn.className = 'chip'; btn.dataset.v = item.name; btn.textContent = item.name;
     btn.onclick = () => chipClick(btn);
     bar.appendChild(btn);
   });
@@ -1620,17 +980,12 @@ function chipClick(btn) {
 
 function deleteItem(idx) {
   if (!confirm(`Ištrinti "${items[idx].name}"?`)) return;
-  items.splice(idx, 1);
-  saveItems();
-  toast('Ištrinta', 'ok');
+  items.splice(idx, 1); saveItems(); toast('Ištrinta', 'ok');
 }
 
 function confirmDeleteEntry(btn) {
-  const date = btn.dataset.date;
-  const kas  = btn.dataset.kas;
-  const val  = btn.dataset.val;
-  document.getElementById('deleteInfo').innerHTML =
-    `<strong>${kas}</strong><br>${val}<br><span style="color:var(--text3)">${date}</span>`;
+  const date=btn.dataset.date, kas=btn.dataset.kas, val=btn.dataset.val;
+  document.getElementById('deleteInfo').innerHTML = `<strong>${kas}</strong><br>${val}<br><span style="color:var(--text3)">${date}</span>`;
   document.getElementById('deleteConfirmBtn').onclick = () => doDeleteEntry(date, kas, val);
   openModal('deleteModal');
 }
@@ -1641,19 +996,12 @@ async function doDeleteEntry(date, kas, val) {
     const r = await post({ action:'deleteEntry', date, kas, val });
     if (r.error) throw new Error(r.error);
     toast('Ištrinta ✓', 'ok');
-
-    // Tikriname ar ištrintas įrašas yra šiandien
     const now = new Date();
     const pad = n => String(n).padStart(2,'0');
     const today = `${now.getFullYear()}.${pad(now.getMonth()+1)}.${pad(now.getDate())}`;
-    const isToday = date === today;
-
-    // Atnaujiname cache
-    allEntries = [];
-    allEntriesLoaded = false;
-    await fetchAllEntries();
-
-    if (isToday) loadToday();
+    allEntries = []; allEntriesLoaded = false;
+    await loadAllInBackground();
+    if (date === today) loadToday();
   } catch(e) {
     toast('Klaida: ' + e.message, 'err');
   }
@@ -1670,21 +1018,12 @@ function addItem() {
   const name = document.getElementById('newName').value.trim();
   const action = document.getElementById('newAction').value.trim();
   if (!name) { toast('Įveskite pavadinimą!', 'err'); return; }
-
-  const item = {
-    id: name.toLowerCase().replace(/[^a-z0-9]/gi,'') + '_' + Date.now(),
-    name, action, type: newType,
-    color: pickColor()
-  };
-
+  const item = { id: name.toLowerCase().replace(/[^a-z0-9]/gi,'')+'_'+Date.now(), name, action, type: newType, color: pickColor() };
   if (newType === 'number') {
     item.unit = document.getElementById('newUnit').value.trim() || 'vnt.';
     item.step = parseFloat(document.getElementById('newStep').value) || 1;
   }
-
-  items.push(item);
-  saveItems();
-
+  items.push(item); saveItems();
   document.getElementById('newName').value = '';
   document.getElementById('newAction').value = '';
   document.getElementById('newUnit').value = '';
@@ -1692,9 +1031,7 @@ function addItem() {
   toast(`"${name}" pridėta!`, 'ok');
 }
 
-// ──────────────────────────────────────
-// TABS
-// ──────────────────────────────────────
+// ── TABS ──
 function switchTab(tab) {
   ['entry','history','settings'].forEach(t => {
     document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
@@ -1703,96 +1040,63 @@ function switchTab(tab) {
   if (tab === 'history') initHistory();
 }
 
-// ──────────────────────────────────────
-// FIRST-TIME SETUP
-// ──────────────────────────────────────
+// ── SETUP PIN ──
 let setupInput = '', setupFirst = '';
-
 function setupPinPress(d) {
   if (setupInput.length >= 4) return;
-  setupInput += d;
-  updateSetupDots();
+  setupInput += d; updateSetupDots();
   if (setupInput.length === 4) setTimeout(setupPinCheck, 150);
 }
-
-function setupPinDel() {
-  setupInput = setupInput.slice(0,-1);
-  updateSetupDots();
-}
-
+function setupPinDel() { setupInput = setupInput.slice(0,-1); updateSetupDots(); }
 function updateSetupDots() {
-  for (let i = 0; i < 4; i++) {
-    document.getElementById(`sd${i}`).classList.toggle('filled', i < setupInput.length);
-  }
+  for (let i=0;i<4;i++) document.getElementById(`sd${i}`).classList.toggle('filled', i<setupInput.length);
 }
-
 function setupPinCheck() {
   if (!setupFirst) {
-    setupFirst = setupInput;
-    setupInput = '';
-    updateSetupDots();
+    setupFirst = setupInput; setupInput = ''; updateSetupDots();
     document.getElementById('setupSub').textContent = 'Pakartokite PIN kodą';
     document.getElementById('setupError').textContent = '';
   } else {
     if (setupInput === setupFirst) {
       localStorage.setItem('maja_pin', setupFirst);
-      toast('PIN sukurtas!', 'ok');
-      showScreen('screen-login');
+      toast('PIN sukurtas!', 'ok'); showScreen('screen-login');
     } else {
       document.getElementById('setupError').textContent = 'PIN nesutampa. Bandykite dar kartą.';
-      setupFirst = ''; setupInput = '';
-      updateSetupDots();
+      setupFirst = ''; setupInput = ''; updateSetupDots();
       document.getElementById('setupSub').textContent = 'Pasirinkite 4 skaitmenų PIN kodą';
     }
   }
 }
 
-// ──────────────────────────────────────
-// LOGIN PIN
-// ──────────────────────────────────────
+// ── LOGIN PIN ──
 let loginInput = '';
-let loginFailCount = 0;
-
 function loginPinPress(d) {
   if (loginInput.length >= 4) return;
-  loginInput += d;
-  updateLoginDots();
+  loginInput += d; updateLoginDots();
   if (loginInput.length === 4) setTimeout(checkLoginPin, 150);
 }
-
-function loginPinDel() {
-  loginInput = loginInput.slice(0,-1);
-  updateLoginDots();
-}
-
+function loginPinDel() { loginInput = loginInput.slice(0,-1); updateLoginDots(); }
 function updateLoginDots() {
-  for (let i = 0; i < 4; i++) {
+  for (let i=0;i<4;i++) {
     const dot = document.getElementById(`ld${i}`);
-    dot.classList.toggle('filled', i < loginInput.length);
+    dot.classList.toggle('filled', i<loginInput.length);
     dot.classList.remove('error');
   }
 }
-
 function checkLoginPin() {
   if (loginInput === localStorage.getItem('maja_pin')) {
-    loginFailCount = 0;
-    onLoginSuccess();
+    loginFailCount = 0; onLoginSuccess();
   } else {
     loginFailCount++;
-    for (let i = 0; i < 4; i++) document.getElementById(`ld${i}`).classList.add('error');
-
+    for (let i=0;i<4;i++) document.getElementById(`ld${i}`).classList.add('error');
     const errEl = document.getElementById('loginError');
-    const subEl = document.getElementById('loginSub');
-
     if (loginFailCount >= 5) {
       errEl.innerHTML = `Neteisingas PIN · <a href="#" onclick="forgotPin()" style="color:var(--accent);text-decoration:none;">Pamiršau PIN</a>`;
     } else {
       errEl.textContent = `Neteisingas PIN (${loginFailCount}/5)`;
     }
-
     setTimeout(() => {
-      loginInput = '';
-      updateLoginDots();
+      loginInput = ''; updateLoginDots();
       if (loginFailCount < 5) errEl.textContent = '';
     }, 900);
   }
@@ -1800,100 +1104,59 @@ function checkLoginPin() {
 
 function forgotPin() {
   if (!confirm('Ištrinti PIN ir pradėti iš naujo?\n\nDuomenys Sheets nebus ištrinti.')) return;
-  localStorage.removeItem('maja_pin');
-  localStorage.removeItem('bio_cred');
+  localStorage.removeItem('maja_pin'); localStorage.removeItem('bio_cred');
   loginFailCount = 0;
   document.getElementById('loginError').textContent = '';
   showScreen('screen-setup');
-  // Reset setup state
-  setupInput = ''; setupFirst = '';
-  updateSetupDots();
+  setupInput = ''; setupFirst = ''; updateSetupDots();
   document.getElementById('setupSub').textContent = 'Pasirinkite 4 skaitmenų PIN kodą';
   document.getElementById('setupError').textContent = '';
 }
 
 function onLoginSuccess() {
-  loginInput = '';
-  updateLoginDots();
-  showScreen('screen-app');
-  loadToday();
-  pullSettings();
+  loginInput = ''; updateLoginDots();
+  showScreen('screen-app'); loadToday(); pullSettings();
 }
+function logout() { showScreen('screen-login'); }
 
-function logout() {
-  showScreen('screen-login');
-}
-
-// ──────────────────────────────────────
-// BIOMETRIC (Face ID / WebAuthn)
-// ──────────────────────────────────────
+// ── BIOMETRIC ──
 async function loginBio() {
   const credId = localStorage.getItem('bio_cred');
   if (!credId) return;
-
   try {
     const challenge = crypto.getRandomValues(new Uint8Array(32));
     const assertion = await navigator.credentials.get({
-      publicKey: {
-        challenge,
-        allowCredentials: [{ id: b64ToArr(credId), type: 'public-key' }],
-        userVerification: 'required',
-        timeout: 60000
-      }
+      publicKey: { challenge, allowCredentials: [{ id: b64ToArr(credId), type:'public-key' }], userVerification:'required', timeout:60000 }
     });
     if (assertion) onLoginSuccess();
-  } catch (e) {
-    if (e.name !== 'NotAllowedError') toast('Face ID nepavyko', 'err');
+  } catch(e) {
+    if (e.name !== 'NotAllowedError') toast('Biometrija nepavyko', 'err');
   }
 }
 
 async function setupBio() {
-  if (!window.PublicKeyCredential) {
-    toast('Naršyklė nepalaiko biometrikos', 'err'); return;
-  }
-
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isMac = /macintosh/i.test(navigator.userAgent);
-
-  if (!isIOS && !isMac) {
-    toast('Face ID veikia tik iPhone/iPad per Safari', 'err');
-    return;
-  }
-
-  const available = await PublicKeyCredential
-    .isUserVerifyingPlatformAuthenticatorAvailable()
-    .catch(() => false);
-
-  if (!available) {
-    toast('Face ID šiame įrenginyje nerastas', 'err'); return;
-  }
-
+  if (!window.PublicKeyCredential) { toast('Naršyklė nepalaiko biometrikos', 'err'); return; }
+  const isApple = /iphone|ipad|ipod|macintosh/i.test(navigator.userAgent);
+  if (!isApple) { toast('Face ID veikia tik iPhone/iPad per Safari', 'err'); return; }
+  const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(()=>false);
+  if (!available) { toast('Face ID šiame įrenginyje nerastas', 'err'); return; }
   try {
     const challenge = crypto.getRandomValues(new Uint8Array(32));
     const userId    = crypto.getRandomValues(new Uint8Array(16));
     const cred = await navigator.credentials.create({
       publicKey: {
         challenge,
-        rp: { name: 'Maja', id: location.hostname },
-        user: { id: userId, name: 'maja', displayName: 'Maja' },
-        pubKeyCredParams: [
-          { alg: -7,   type: 'public-key' },
-          { alg: -257, type: 'public-key' }
-        ],
-        authenticatorSelection: {
-          authenticatorAttachment: 'platform',
-          userVerification: 'required',
-          residentKey: 'preferred'
-        },
-        timeout: 60000,
-        excludeCredentials: []
+        rp: { name:'Maja', id: location.hostname },
+        user: { id:userId, name:'maja', displayName:'Maja' },
+        pubKeyCredParams: [{ alg:-7, type:'public-key' }, { alg:-257, type:'public-key' }],
+        authenticatorSelection: { authenticatorAttachment:'platform', userVerification:'required', residentKey:'preferred' },
+        timeout: 60000, excludeCredentials: []
       }
     });
     localStorage.setItem('bio_cred', arrToB64(cred.rawId));
-    updateBioStatus();
-    toast('Face ID sukonfigūruota ✓', 'ok');
+    updateBioStatus(); toast('Face ID sukonfigūruota ✓', 'ok');
   } catch(e) {
-    if (e.name === 'NotAllowedError') toast('Atšaukta', 'err');
+    if (e.name==='NotAllowedError') toast('Atšaukta', 'err');
     else toast('Nepavyko: ' + e.message, 'err');
   }
 }
@@ -1902,44 +1165,32 @@ function updateBioStatus() {
   const el = document.getElementById('bioStatus');
   const bioBtn = document.getElementById('bioBtn');
   const bioRow = document.getElementById('bioRow');
-
   const isApple = /iphone|ipad|ipod|macintosh/i.test(navigator.userAgent);
-
-  // Slėpti Face ID nustatymų eilutę ne-Apple įrenginiuose
   if (bioRow) bioRow.style.display = isApple ? '' : 'none';
-
   if (el) el.textContent = localStorage.getItem('bio_cred') ? 'Sukonfigūruota ✓' : 'Nesukonfigūruota';
   if (bioBtn) {
-    // Rodyti Face ID mygtuką tik jei Apple ir sukonfigūruota
     bioBtn.style.display = isApple ? 'flex' : 'none';
     bioBtn.style.color = localStorage.getItem('bio_cred') ? 'var(--accent)' : 'var(--text3)';
   }
 }
 
-// ──────────────────────────────────────
-// CHANGE PIN
-// ──────────────────────────────────────
+// ── CHANGE PIN ──
 function changePin() {
   const p1 = document.getElementById('pin1').value;
   const p2 = document.getElementById('pin2').value;
   if (!/^\d{4}$/.test(p1)) { toast('PIN turi būti 4 skaitmenys!', 'err'); return; }
-  if (p1 !== p2)            { toast('PIN nesutampa!', 'err'); return; }
+  if (p1 !== p2) { toast('PIN nesutampa!', 'err'); return; }
   localStorage.setItem('maja_pin', p1);
-  closeModal('pinModal');
-  toast('PIN pakeistas ✓', 'ok');
+  closeModal('pinModal'); toast('PIN pakeistas ✓', 'ok');
   document.getElementById('pin1').value = '';
   document.getElementById('pin2').value = '';
 }
 
-// ──────────────────────────────────────
-// MODAL
-// ──────────────────────────────────────
+// ── MODAL ──
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-// ──────────────────────────────────────
-// API
-// ──────────────────────────────────────
+// ── API ──
 async function get(params) {
   const url = new URL(SCRIPT_URL);
   Object.entries(params).forEach(([k,v]) => url.searchParams.set(k,v));
@@ -1949,32 +1200,20 @@ async function get(params) {
 
 async function post(data) {
   const r = await fetch(SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(data),
-    redirect: 'follow'
+    method:'POST', headers:{'Content-Type':'text/plain'},
+    body: JSON.stringify(data), redirect:'follow'
   });
   return r.json();
 }
 
-// ──────────────────────────────────────
-// UTILS
-// ──────────────────────────────────────
+// ── UTILS ──
 function toast(msg, type) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type||''} show`;
-  clearTimeout(t._to);
-  t._to = setTimeout(() => t.classList.remove('show'), 2600);
+  t.textContent = msg; t.className = `toast ${type||''} show`;
+  clearTimeout(t._to); t._to = setTimeout(() => t.classList.remove('show'), 2600);
 }
-
-function arrToB64(buf) {
-  return btoa(String.fromCharCode(...new Uint8Array(buf)));
-}
-
-function b64ToArr(b64) {
-  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-}
+function arrToB64(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))); }
+function b64ToArr(b64) { return Uint8Array.from(atob(b64), c => c.charCodeAt(0)); }
 </script>
 </body>
 </html>
